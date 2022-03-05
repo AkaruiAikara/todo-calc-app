@@ -1,8 +1,7 @@
 import React from 'react';
 import 'react-native-gesture-handler';
-import {NativeBaseProvider, extendTheme, Box} from 'native-base';
-
-import Calculator from './src/screens/calculator';
+import {NativeBaseProvider, extendTheme} from 'native-base';
+import Container from './Container';
 
 export default function App() {
   const theme = extendTheme({
@@ -23,9 +22,7 @@ export default function App() {
   });
   return (
     <NativeBaseProvider theme={theme}>
-      <Box _light={{bg: 'primary.50'}} flex="1" px="4" py="12">
-        <Calculator />
-      </Box>
+      <Container />
     </NativeBaseProvider>
   );
 }

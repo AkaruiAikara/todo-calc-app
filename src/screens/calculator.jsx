@@ -43,8 +43,8 @@ export default function Calculator() {
   return (
     <Center>
       <FormControl w="80%">
-        <FormControl.Label _text={{color: 'primary.700'}}>
-          Display
+        <FormControl.Label _text={{color: 'primary.700', fontSize: '2xl'}}>
+          Calculator
         </FormControl.Label>
         {output ? (
           output == input ? (
