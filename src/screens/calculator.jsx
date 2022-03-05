@@ -8,9 +8,11 @@ import {
   VStack,
   Button,
   Text,
+  useTheme,
 } from 'native-base';
 
 export default function Calculator() {
+  const theme = useTheme();
   const [input, setInput] = useState('');
   const [output, setOutput] = useState('');
   // handle press of a number button
@@ -97,6 +99,7 @@ export default function Calculator() {
               size={20}
               rounded="lg"
               _text={{color: 'white', fontSize: '2xl'}}
+              android_ripple={{color: theme.colors.primary[900]}}
               onPress={() => handleClear()}>
               C
             </Button>
@@ -105,6 +108,7 @@ export default function Calculator() {
               size={20}
               rounded="lg"
               _text={{color: 'white', fontSize: '2xl'}}
+              android_ripple={{color: theme.colors.primary[900]}}
               onPress={() => handleBackspace()}>
               ⌫
             </Button>
@@ -115,6 +119,7 @@ export default function Calculator() {
               size={20}
               rounded="lg"
               _text={{color: 'white', fontSize: '2xl'}}
+              android_ripple={{color: theme.colors.primary[500]}}
               onPress={() => handleNumberPress('1')}>
               1
             </Button>
@@ -123,6 +128,7 @@ export default function Calculator() {
               size={20}
               rounded="lg"
               _text={{color: 'white', fontSize: '2xl'}}
+              android_ripple={{color: theme.colors.primary[500]}}
               onPress={() => handleNumberPress('2')}>
               2
             </Button>
@@ -131,6 +137,7 @@ export default function Calculator() {
               size={20}
               rounded="lg"
               _text={{color: 'white', fontSize: '2xl'}}
+              android_ripple={{color: theme.colors.primary[900]}}
               onPress={() => handleNumberPress('-')}>
               -
             </Button>
@@ -139,6 +146,7 @@ export default function Calculator() {
               size={20}
               rounded="lg"
               _text={{color: 'white', fontSize: '2xl'}}
+              android_ripple={{color: theme.colors.primary[900]}}
               onPress={() => handleNumberPress('+')}>
               +
             </Button>
@@ -149,6 +157,7 @@ export default function Calculator() {
               size={20}
               rounded="lg"
               _text={{color: 'white', fontSize: '2xl'}}
+              android_ripple={{color: theme.colors.primary[500]}}
               onPress={() => handleNumberPress('3')}>
               3
             </Button>
@@ -157,6 +166,7 @@ export default function Calculator() {
               size={20}
               rounded="lg"
               _text={{color: 'white', fontSize: '2xl'}}
+              android_ripple={{color: theme.colors.primary[500]}}
               onPress={() => handleNumberPress('4')}>
               4
             </Button>
@@ -165,6 +175,7 @@ export default function Calculator() {
               size={20}
               rounded="lg"
               _text={{color: 'white', fontSize: '2xl'}}
+              android_ripple={{color: theme.colors.primary[900]}}
               onPress={() => handleNumberPress('/')}>
               /
             </Button>
@@ -173,6 +184,7 @@ export default function Calculator() {
               size={20}
               rounded="lg"
               _text={{color: 'white', fontSize: '2xl'}}
+              android_ripple={{color: theme.colors.primary[900]}}
               onPress={() => handleNumberPress('*')}>
               *
             </Button>
@@ -183,6 +195,7 @@ export default function Calculator() {
               size={20}
               rounded="lg"
               _text={{color: 'white', fontSize: '2xl'}}
+              android_ripple={{color: theme.colors.primary[500]}}
               onPress={() => handleNumberPress('5')}>
               5
             </Button>
@@ -191,6 +204,7 @@ export default function Calculator() {
               size={20}
               rounded="lg"
               _text={{color: 'white', fontSize: '2xl'}}
+              android_ripple={{color: theme.colors.primary[500]}}
               onPress={() => handleNumberPress('6')}>
               6
             </Button>
@@ -199,6 +213,7 @@ export default function Calculator() {
               size={20}
               rounded="lg"
               _text={{color: 'white', fontSize: '2xl'}}
+              android_ripple={{color: theme.colors.primary[900]}}
               onPress={() => handleNumberPress('%')}>
               %
             </Button>
@@ -207,6 +222,7 @@ export default function Calculator() {
               size={20}
               rounded="lg"
               _text={{color: 'white', fontSize: '2xl'}}
+              android_ripple={{color: theme.colors.primary[900]}}
               onPress={() => handleEvaluate()}>
               =
             </Button>
@@ -217,6 +233,7 @@ export default function Calculator() {
               size={20}
               rounded="lg"
               _text={{color: 'white', fontSize: '2xl'}}
+              android_ripple={{color: theme.colors.primary[500]}}
               onPress={() => handleNumberPress('7')}>
               7
             </Button>
@@ -225,6 +242,7 @@ export default function Calculator() {
               size={20}
               rounded="lg"
               _text={{color: 'white', fontSize: '2xl'}}
+              android_ripple={{color: theme.colors.primary[500]}}
               onPress={() => handleNumberPress('8')}>
               8
             </Button>
@@ -233,6 +251,7 @@ export default function Calculator() {
               size={20}
               rounded="lg"
               _text={{color: 'white', fontSize: '2xl'}}
+              android_ripple={{color: theme.colors.primary[500]}}
               onPress={() => handleNumberPress('9')}>
               9
             </Button>
@@ -241,6 +260,7 @@ export default function Calculator() {
               size={20}
               rounded="lg"
               _text={{color: 'white', fontSize: '2xl'}}
+              android_ripple={{color: theme.colors.primary[500]}}
               onPress={() => handleNumberPress('0')}>
               0
             </Button>
