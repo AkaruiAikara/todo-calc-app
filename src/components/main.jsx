@@ -1,23 +1,14 @@
 import React from 'react';
-import {Box, StatusBar, useTheme} from 'native-base';
-import {NavigationContainer, DefaultTheme} from '@react-navigation/native';
+import {Box, StatusBar} from 'native-base';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import Splash from './screens/splash';
-import TabItem from './components/tabitem';
+import {Splash} from '../screens';
+import {TabItem} from './';
 
 const Stack = createNativeStackNavigator();
 
-export default function Container() {
-  const theme = useTheme();
-  const MyTheme = {
-    ...DefaultTheme,
-    colors: {
-      ...DefaultTheme.colors,
-      background: theme.colors.primary[50],
-    },
-  };
+export default function Main() {
   return (
-    <NavigationContainer theme={MyTheme}>
+    <>
       <StatusBar
         translucent
         backgroundColor="transparent"
@@ -36,6 +27,6 @@ export default function Container() {
           options={{headerShown: false}}
         />
       </Stack.Navigator>
-    </NavigationContainer>
+    </>
   );
 }
