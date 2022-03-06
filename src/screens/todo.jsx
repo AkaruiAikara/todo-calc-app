@@ -3,7 +3,6 @@ import {
   Box,
   Text,
   HStack,
-  ScrollView,
   Checkbox,
   Pressable,
   FlatList,
@@ -13,86 +12,59 @@ import {
 } from 'native-base';
 import {LogBox} from 'react-native';
 import Icon from 'react-native-vector-icons/AntDesign';
+import firestore from '@react-native-firebase/firestore';
+import AnimatedLottieView from 'lottie-react-native';
 import {Header} from '../components';
 
-const DATA = [
-  {
-    id: '1',
-    title: 'Buy milk',
-    completed: true,
-    createdAt: '2022-03-06T08:21:17.624Z',
-  },
-  {
-    id: '2',
-    title: 'Buy eggs',
-    completed: false,
-    createdAt: '2022-03-06T08:21:17.624Z',
-  },
-  {
-    id: '3',
-    title: 'Buy bread',
-    completed: false,
-    createdAt: '2022-03-06T08:21:17.624Z',
-  },
-  {
-    id: '4',
-    title: 'Buy coffee',
-    completed: true,
-    createdAt: '2022-03-06T08:21:17.624Z',
-  },
-  {
-    id: '5',
-    title: 'Buy tea',
-    completed: false,
-    createdAt: '2022-03-06T08:21:17.624Z',
-  },
-  {
-    id: '6',
-    title: 'Buy water',
-    completed: false,
-    createdAt: '2022-03-06T08:21:17.624Z',
-  },
-];
-
 export default function Todo() {
+  const ref = firestore().collection('todos');
   const theme = useTheme();
   const [showModal, setShowModal] = useState(false);
-  const [todos, setTodos] = useState(DATA);
+  const [todos, setTodos] = useState([]);
   const [input, setInput] = useState('');
+  const [loading, setLoading] = useState(true);
   useEffect(() => {
     LogBox.ignoreLogs(['VirtualizedLists should never be nested']);
+    ref.onSnapshot(querySnapshot => {
+      const list = [];
+      querySnapshot.forEach(doc => {
+        list.push({id: doc.id, ...doc.data()});
+      });
+      setTodos(list);
+      setLoading(false);
+    });
   }, []);
   // delete todo
-  const deleteTodo = id => {
-    setTodos(todos.filter(todo => todo.id !== id));
+  const deleteTodo = async id => {
+    setLoading(true);
+    await ref.doc(id).delete();
+    setLoading(false);
   };
   // toggle todo
-  const toggleTodo = id => {
-    setTodos(
-      todos.map(todo => {
-        if (todo.id === id) {
-          return {...todo, completed: !todo.completed};
-        }
-        return todo;
-      }),
-    );
+  const toggleTodo = async id => {
+    setLoading(true);
+    const todo = await ref.doc(id).get();
+    await ref.doc(id).update({
+      completed: !todo.data().completed,
+    });
+    setLoading(false);
   };
   // handle input change
   const handleInputChange = text => {
     setInput(text);
   };
   // handle add todo
-  const handleAddTodo = () => {
+  const handleAddTodo = async () => {
     if (input) {
-      const newTodo = {
-        id: Math.random().toString(),
+      setLoading(true);
+      setShowModal(false);
+      await ref.add({
         title: input,
         completed: false,
         createdAt: new Date().toISOString(),
-      };
-      setTodos([...todos, newTodo]);
+      });
       setInput('');
-      setShowModal(false);
+      setLoading(false);
     }
   };
   const _renderItem = ({item}) => {
@@ -115,7 +87,7 @@ export default function Todo() {
             {item.title}
           </Checkbox>
           <Text fontSize="xs" ml="auto" mt={10}>
-            {new Date(item.createdAt).toLocaleString()}
+            {new Date(item.createdAt).toLocaleTimeString()}
           </Text>
         </HStack>
         <Pressable
@@ -139,9 +111,11 @@ export default function Todo() {
         Todo's
       </Text>
       {todos.length > 0 ? (
-        <ScrollView>
-          <FlatList data={todos} renderItem={_renderItem} />
-        </ScrollView>
+        <FlatList
+          data={todos}
+          keyExtractor={item => item.id}
+          renderItem={_renderItem}
+        />
       ) : (
         <Text mx="auto" my={8} fontSize={24} color="primary.700">
           Ups, no todo's yet... 🤷‍♂️
@@ -201,6 +175,17 @@ export default function Todo() {
             />
           </Modal.Body>
         </Modal.Content>
+      </Modal>
+      <Modal isOpen={loading}>
+        <AnimatedLottieView
+          source={require(`../assets/lottie/loading.json`)}
+          autoPlay
+          loop
+          style={{
+            width: 100,
+            alignSelf: 'center',
+          }}
+        />
       </Modal>
     </>
   );
