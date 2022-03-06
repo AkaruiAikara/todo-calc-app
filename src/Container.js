@@ -2,8 +2,8 @@ import React from 'react';
 import {Box, StatusBar, useTheme} from 'native-base';
 import {NavigationContainer, DefaultTheme} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import Splash from './src/screens/splash';
-import TabItem from './src/components/tabitem';
+import Splash from './screens/splash';
+import TabItem from './components/tabitem';
 
 const Stack = createNativeStackNavigator();
 
